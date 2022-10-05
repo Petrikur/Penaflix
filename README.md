@@ -7,7 +7,7 @@ Currently movie info and trailer is shown when movie is pressed. Authentication 
 Next im planning to develop "mylist" page and movie row as well as subscription functionality with Stripe. 
 
 ## Usage
-Live demo is hosted in Vercel and can be found [here](penaflix-nu.vercel.app). 
+Live demo is hosted in Vercel and can be found [here](https://penaflix-nu.vercel.app/). 
 If you dont want to sign up, you can use predefined user account to test app.
 
 ## Installation
