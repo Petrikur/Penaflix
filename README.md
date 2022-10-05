@@ -1,3 +1,22 @@
+# Penaflix
+
+# Project
+
+This this a netflix inspired movie applcation made with ReactJs, NextJs, TaildwindCSS and other libraries. Movie data is fetched from TMDB API.
+Currently movie info and trailer is shown when movie is pressed. Authentication is handled with Firebase.
+Next im planning to develop "mylist" page and movie row as well as subscription functionality with Stripe. 
+
+## Usage
+Live demo is hosted in Vercel and can be found [here](). 
+If you dont want to sign up, you can use predefined user account to test app.
+
+## Installation
+
+```bash
+npm install 
+npm start
+```
+
 # Next.js + Tailwind CSS Example
 
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
