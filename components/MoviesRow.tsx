@@ -41,8 +41,8 @@ function MoviesRow({ title, movies }: Props) {
           className="flex items-center space-x-0.5 overflow-x-scroll scrollbar-hide md:space-x-2.5 md:p-2"
           ref={rowRef}
         >
-          {movies.map((movie) => (
-            <MovieItem key={movie.id} movie={movie} />
+          {movies.map((movie,index) => (
+            <MovieItem key={index} movie={movie} /> // key = movie.id 
           ))}
         </div>
         <FaArrowRight

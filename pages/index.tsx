@@ -23,7 +23,7 @@ const Home = (props: Props) => {
   const showModal = useRecoilValue(modalState);
 
   if (loading) {
-    return null; // Todo add loading spinner
+    return null;
   }
 
   return (
