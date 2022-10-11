@@ -20,8 +20,9 @@ interface Props {
 const Search = (props: Props) => {
   // const [showModal,setShowModal] = useRecoilState(modalState)
   // const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
-  const [searchResults, setSearchResults]:any[] = useState([]);
-    const [notSearching, setNotSearching] = useState(true);
+  const [searchResults, setSearchResults]: any[] = useState([]);
+  const [notSearching, setNotSearching] = useState(true);
+  const showModal = useRecoilValue(modalState);
   const [allMovies, setAllMovies] = useState(
     props.netflixOriginals.concat(
       props.actionMovies,
@@ -32,27 +33,23 @@ const Search = (props: Props) => {
     )
   );
 
-  // const [totalMovies, setTotalMovies]: any = useState([]);
-  const showModal = useRecoilValue(modalState);
   const getRidOfDuplicates = (allMovies: Movie[]) => {
     let removed = allMovies.filter(
       (movie, index) =>
-        index ===
-        allMovies.findIndex(
-          (elem) => elem.id === movie.id 
-        )
+        index === allMovies.findIndex((elem) => elem.id === movie.id)
     );
     setAllMovies(removed);
   };
 
   useEffect(() => {
     getRidOfDuplicates(allMovies);
+    setSearchResults(allMovies);
   }, []);
 
   const onChangeHandler = (event: any) => {
     if (event.target.value == "") {
-      setSearchResults([]);
-        setNotSearching(true);
+      // setSearchResults([]);
+      setNotSearching(true);
     }
     setNotSearching(false);
     const filteredResults = allMovies.filter(
@@ -90,17 +87,15 @@ const Search = (props: Props) => {
               id="default-search"
               className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search Movies..."
-              
             />
-            <button
+            {/* <button
               type="submit"
               className="text-white absolute right-2.5 bottom-2.5 bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
             >
               Search
-            </button>
+            </button> */}
           </div>
         </form>
-
         <div className="FilteredMovies">
           <div className="group relative md:-ml-2">
             {/* <div
@@ -115,13 +110,12 @@ const Search = (props: Props) => {
             </div> */}
           </div>
         </div>
-        { !notSearching && <div className=" grid grid-cols-2 my-36 gap-4 mx-5 lg:grid-cols-5 md:grid-cols-3 ">
-       
-         
-          {searchResults.map((movie: Movie,index:number) => (
+        <div className=" grid grid-cols-2 my-36 gap-4 mx-5 lg:grid-cols-5 md:grid-cols-3 ">
+          {searchResults.map((movie: Movie, index: number) => (
             <MovieItem key={index} movie={movie} />
           ))}
-        </div>}
+        </div>
+        )
       </div>
       {showModal && <MovieModal />}
       {/* </div> */}

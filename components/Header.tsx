@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,forwardRef } from "react";
 import { FaSearch, FaBell, FaUserCircle } from "react-icons/fa";
 import penaflixImage from "./Images/penaflix.png";
 import useAuth from "../customhooks/useAuth";
@@ -7,7 +7,6 @@ import Link from "next/link";
 const Header = () => {
   const [isScrolling, setisScrolling] = useState(false);
   const { logout } = useAuth();
-
   // if scrolling, animate the navbar
   useEffect(() => {
     const handleScoll = () => {
@@ -68,7 +67,7 @@ const Header = () => {
       </div>
 
       <div className="flex items-center space-x-4 text-sm font-light">
-      <Link href={"/search"} ><FaSearch className="sm hidden h-6 w-6 sm:inline cursor-pointer hover:bg-[gray]/50 rounded" /></Link>
+      <Link href={"/search"}><FaSearch className="sm hidden h-6 w-6 sm:inline cursor-pointer hover:bg-[gray]/70 rounded " /></Link>
 
         <FaBell className="sm hidden h-6 w-6 sm:inline" />
 
