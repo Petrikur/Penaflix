@@ -6,23 +6,23 @@ import MovieModal from "../components/MovieModal";
 import { Movie } from "../models/types";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { modalState, movieState } from "../components/AtomModal";
-import {MongoClient} from "mongodb"
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { MongoClient } from "mongodb";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    name: string
-  }
+  name: string;
+};
 const MyList = (props) => {
   const showModal = useRecoilValue(modalState);
   const [list, setList] = useState(props.mylist);
 
-//   useEffect(() => {
-//     getMyList(props)
-//   },[])
-//   const getMyList = async () => {
-    
-//     console.log(data)
-//   };
+  //   useEffect(() => {
+  //     getMyList(props)
+  //   },[])
+  //   const getMyList = async () => {
+
+  //     console.log(data)
+  //   };
 
   return (
     <>
@@ -46,33 +46,24 @@ const MyList = (props) => {
   );
 };
 
-
-
 export default MyList;
 
-export const getServerSideProps = async() => {
-    
-    let myList = []
-    try{
-        const client = await MongoClient.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.zyfh5of.mongodb.net/mylist?retryWrites=true&w=majority`)
-        const db = client.db();
-        const myListColl = db.collection("mylist")
+export const getServerSideProps = async () => {
+  let myList = [];
 
-         myList = await myListColl.find().toArray()
+  const client = await MongoClient.connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.zyfh5of.mongodb.net/mylist?retryWrites=true&w=majority`
+  );
+  const db = client.db();
+  const myListColl = db.collection("mylist");
 
-         client.close()
+  myList = await myListColl.find().toArray();
 
-      }catch(err){
-        console.log(err.message)
-      }
-    
-    
-    return {
-        props:{
-            mylist:JSON.parse(JSON.stringify(myList)),
-        }
-    
-    }
-}
+  client.close();
 
-
+  return {
+    props: {
+      mylist: JSON.parse(JSON.stringify(myList)),
+    },
+  };
+};
