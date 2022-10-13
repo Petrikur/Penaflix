@@ -5,6 +5,7 @@ import { RiCloseCircleFill, RiCreativeCommonsZeroLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { Element, Genre } from "../models/types";
 import ReactPlayer from "react-player/lazy";
+import { Movie } from "../models/types";
 import {
   FaPlay,
   FaPlusCircle,
@@ -12,6 +13,7 @@ import {
   FaVolumeOff,
   FaVolumeUp,
 } from "react-icons/fa";
+import { DocumentData } from 'firebase/firestore'
 
 const MovieModal = () => {
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -55,6 +57,20 @@ const MovieModal = () => {
   const date: Date = new Date(movie?.release_date);
   const year = date.getFullYear();
 
+
+  const saveToList = async (data:Movie | DocumentData | null) => {
+    console.log(data)
+    const response = await fetch("/api/list", {
+        method:"POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+    });
+    const result = await response.json()
+    console.log(data)
+}
+
   return (
     <MUiModal
       className="fixed !top-7 left-0 right-0 z-50 mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-md scrollbar-hide"
@@ -86,7 +102,7 @@ const MovieModal = () => {
                 Play
               </button>
               <button className="modalButton ">
-                <FaPlusCircle className=" h-7 w-7" />
+                <FaPlusCircle onClick={() => saveToList(movie)} className=" h-7 w-7" />
               </button>
               <button className="modalButton">
                 <FaThumbsUp className="h-7 w-7" />

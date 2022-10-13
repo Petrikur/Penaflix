@@ -56,12 +56,16 @@ const Header = () => {
           <li className="headerLink">Series</li>
           <li className="headerLink">Movies</li>
           <li className="headerLink">New</li>
-          <li className="headerLink">My list</li>
           <Link
             className="headerLink cursor-pointer font-semibold text-white hover:text-white"
             href={"/about"}
+          >About
+          </Link> 
+          <Link
+            className="headerLink cursor-pointer font-semibold text-white hover:text-white"
+            href={"/mylist"}
           >
-            About
+            My List
           </Link> 
         </ul>
       </div>
