@@ -12,7 +12,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 type Data = {
   name: string;
 };
-const MyList = (props) => {
+const MyList = (props:any) => {
   const showModal = useRecoilValue(modalState);
   const [list, setList] = useState(props.mylist);
 
