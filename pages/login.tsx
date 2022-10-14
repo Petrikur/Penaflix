@@ -40,7 +40,7 @@ const Login = () => {
       <Image
         src={backgroundImage}
         layout="fill"
-        className="-z-10 !hidden opacity-60 sm:!inline"
+        className="-z-10 !hidden opacity-60 sm:!inline "
         objectFit="cover"
       />
       <img
@@ -48,7 +48,7 @@ const Login = () => {
         alt=""
         width={200}
         height={200}
-        className="absolute cursor-pointer object-contain md:left-10 md:top-6"
+        className="absolute top-3 left-3 cursor-pointer object-contain md:left-10 md:top-6"
       />
       <form
         onSubmit={handleSubmit(onSubmit)}

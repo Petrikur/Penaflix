@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <div className="relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
+    <div className="absolute top-28 px-5 flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
       <Header />
       <Image
         src={backgroundImage}
