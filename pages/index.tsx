@@ -46,6 +46,7 @@ const Home = (props: Props) => {
         </section>
       </main>
       {showModal && <MovieModal />}
+      
     </div>
   );
 };

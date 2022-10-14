@@ -27,6 +27,7 @@ const Header = () => {
 
   return (
     <header className={`${isScrolling && "bg-[#141414d8]"}`}>
+      
       <div className=" flex items-center space-x-2 md:space-x-10">
         <Link href="/">
           <img

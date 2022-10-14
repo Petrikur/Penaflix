@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Element, Genre } from "../models/types";
 import ReactPlayer from "react-player/lazy";
 import { Movie } from "../models/types";
+
 import {
   FaPlay,
   FaPlusCircle,
@@ -125,6 +126,7 @@ const MovieModal = () => {
       onClose={closeModal}
     >
       <>
+
         <button
           onClick={closeModal}
           className="modalButton absolute right-5 top-5 !z-40 h-9 w-9 border-none bg-[#181818] "
@@ -150,16 +152,21 @@ const MovieModal = () => {
               </button>
 
               {!movieInList && (
-                <button className="modalButton ">
+                <button className="modalButton" title="remove">
                   <FaPlusCircle
                     onClick={() => saveToList(movie)}
-                    className=" h-7 w-7"
+                    className=" h-7 w-7 "
                   />
                 </button>
               )}
+              
 
               {movieInList && (
-                <button className="modalButton">
+                <button
+                  
+                  type="button"
+                  className="modalButton"
+                >
                   <RiDeleteBin2Fill
                     onClick={() => deleteFromList(movie?.id)}
                     className="h-7 w-7"
@@ -217,6 +224,7 @@ const MovieModal = () => {
           theme="light"
         />
       </>
+      
     </MUiModal>
   );
 };

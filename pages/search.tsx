@@ -20,7 +20,7 @@ interface Props {
 const Search = (props: Props) => {
   // const [showModal,setShowModal] = useRecoilState(modalState)
   // const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
-  const [searchResults, setSearchResults]: any[] = useState([]);
+  const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [notSearching, setNotSearching] = useState(true);
   const showModal = useRecoilValue(modalState);
   const [allMovies, setAllMovies] = useState(
@@ -33,6 +33,7 @@ const Search = (props: Props) => {
     )
   );
 
+
   
 
   useEffect(() => {
@@ -41,26 +42,31 @@ const Search = (props: Props) => {
         (movie, index) =>
           index === movies.findIndex((elem) => elem.id === movie.id)
       );
-  
       setSearchResults(removed);
+      // setTotalMovies(removed)
+      return setAllMovies(removed);
     };
-
+    
     getRidOfDuplicates(allMovies);
-    // setSearchResults(allMovies);
+   
+    
   }, []);
 
   const onChangeHandler = (event: any) => {
     if (event.target.value == "") {
-      // setSearchResults([]);
+
       setNotSearching(true);
+      console.log("yes")
     }
-    setNotSearching(false);
+ 
     const filteredResults = allMovies.filter(
       (movie) =>
         movie.title != undefined &&
         movie.title.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setSearchResults(filteredResults);
+    
+    console.log(filteredResults)
   };
 
   return (
