@@ -9,6 +9,7 @@ import { modalState, movieState } from "../components/AtomModal";
 import { MongoClient } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+
 interface MongoMovie {
   mylist: Movie[];
 }
@@ -19,6 +20,7 @@ const MyList = (props:MongoMovie) => {
 
   return (
     <>
+   
       <div>
         <Head>
           <title>Penaflix Search</title>
@@ -26,7 +28,7 @@ const MyList = (props:MongoMovie) => {
         </Head>
         <Header />
         {/* Search bar  */}
-        <div className=" grid grid-cols-2 my-36 gap-4 mx-5 lg:grid-cols-5 md:grid-cols-3 ">
+        <div className="grid grid-cols-2 my-36 gap-5 mx-5 lg:grid-cols-4 xl:grid-cols-5  md:grid-cols-3  ">
           {list.map((movie: Movie, index: number) => (
             <MovieItem key={index} movie={movie} />
           ))}
@@ -42,6 +44,7 @@ const MyList = (props:MongoMovie) => {
 export default MyList;
 
 export const getServerSideProps = async () => {
+  
   let myList = [];
 
   const client = await MongoClient.connect(

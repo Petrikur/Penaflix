@@ -54,9 +54,7 @@ const Search = (props: Props) => {
 
   const onChangeHandler = (event: any) => {
     if (event.target.value == "") {
-
       setNotSearching(true);
-      console.log("yes")
     }
  
     const filteredResults = allMovies.filter(
@@ -66,7 +64,7 @@ const Search = (props: Props) => {
     );
     setSearchResults(filteredResults);
     
-    console.log(filteredResults)
+  
   };
 
   return (
@@ -119,7 +117,8 @@ const Search = (props: Props) => {
             </div> */}
           </div>
         </div>
-        <div className=" grid grid-cols-2 my-36 gap-4 mx-5 lg:grid-cols-5 md:grid-cols-3 ">
+        <div className=" grid grid-cols-2 my-36 gap-5 mx-5 lg:grid-cols-4 xl:grid-cols-5  md:grid-cols-3 ">
+        
           {searchResults.map((movie: Movie, index: number) => (
             <MovieItem key={index} movie={movie} />
           ))}
