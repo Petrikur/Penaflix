@@ -13,14 +13,28 @@ import {
   FaVolumeOff,
   FaVolumeUp,
 } from "react-icons/fa";
-import { DocumentData } from 'firebase/firestore'
+import { DocumentData } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MovieModal = () => {
+  // Notify when item is removed or added to list
+  const notify = (message: string) => toast.success(message,{
+    position: "bottom-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+
   const [showModal, setShowModal] = useRecoilState(modalState);
   const [movie, setMovie] = useRecoilState(movieState);
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(false);
+  // const [myList,setMyList] = useState([]);
 
   useEffect(() => {
     if (!movie) return;
@@ -57,19 +71,28 @@ const MovieModal = () => {
   const date: Date = new Date(movie?.release_date);
   const year = date.getFullYear();
 
-
-  const saveToList = async (data:Movie | DocumentData | null) => {
-    console.log(data)
+  const saveToList = async (data: Movie | DocumentData | null) => {
+    notify("Movie added to your list!");
+    console.log(data);
     const response = await fetch("/api/list", {
-        method:"POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    const result = await response.json()
-    console.log(data)
-}
+    const result = await response.json();
+    console.log(data);
+  };
+  // delete from my list
+  const deleteFromList = async (id: number) => {
+    notify("Removed movie from your list!");
+    const response = await fetch("/api/list", {
+      method: "DELETE",
+      body: JSON.stringify(id),
+    });
+    const result = await response.json();
+  };
 
   return (
     <MUiModal
@@ -102,10 +125,19 @@ const MovieModal = () => {
                 Play
               </button>
               <button className="modalButton ">
-                <FaPlusCircle onClick={() => saveToList(movie)} className=" h-7 w-7" />
+                <FaPlusCircle
+                  onClick={() => saveToList(movie)}
+                  className=" h-7 w-7"
+                />
               </button>
               <button className="modalButton">
                 <FaThumbsUp className="h-7 w-7" />
+              </button>
+              <button
+                className="h-7 w-12 bg-red-600 ml-11 "
+                onClick={() => deleteFromList(movie?.id)}
+              >
+                Delete{" "}
               </button>
             </div>
             <button className="modalButton" onClick={() => setMuted(!muted)}>
@@ -141,6 +173,18 @@ const MovieModal = () => {
             </div>
           </div>
         </div>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </>
     </MUiModal>
   );

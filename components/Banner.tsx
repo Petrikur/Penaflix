@@ -26,6 +26,7 @@ const Banner = ({ netflixOriginals }: Props) => {
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[75vh] lg:justify-end lg:pb-12">
       <div className="absolute left-0 top-0 -z-10 h-[95vh] w-screen">
         <Image
+        priority
           layout="fill"
           src={`${imageBaseUrl}${movie?.backdrop_path || movie?.poster_path}`}
           objectFit="cover"

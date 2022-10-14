@@ -19,7 +19,9 @@ const MyList = (props:MongoMovie) => {
   console.log(list);
   console.log(props.mylist);
 
-  
+  // useEffect(() => {
+  //   setList(props.mylist)
+  // },[list])
 
   return (
     <>

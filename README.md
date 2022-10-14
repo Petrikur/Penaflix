@@ -3,8 +3,11 @@
 # Project
 
 This this a netflix inspired movie applcation made with ReactJs, NextJs, TaildwindCSS and other libraries. Movie data is fetched from TMDB API.
-Currently movie info and trailer is shown when movie is pressed. Authentication is handled with Firebase.
-Also search functionality is working on basic level. Next im planning to develop "mylist" page and movie row as well as subscription functionality with Stripe. 
+Currently movie info and trailer is shown when movie is selected. Authentication is handled with Firebase.
+Also search functionality is working on basic level.
+User can save or delete movies in own list which is saved to mondodb. 
+
+Next im planning to develop ubscription functionality with Stripe. 
 
 ## Usage
 Live demo is hosted in Vercel and can be found [here](https://penaflix-nu.vercel.app/). 

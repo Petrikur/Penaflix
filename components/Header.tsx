@@ -1,4 +1,4 @@
-import React, { useEffect, useState,forwardRef } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import { FaSearch, FaBell, FaUserCircle } from "react-icons/fa";
 import penaflixImage from "./Images/penaflix.png";
 import useAuth from "../customhooks/useAuth";
@@ -36,46 +36,47 @@ const Header = () => {
             className="cursor-pointer object-contain "
           />
         </Link>
-        <a href="https://www.themoviedb.org/" >
-        <img
-          src={
-            "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
-          }
-          width={100}
-          height={100}
-          className="cursor-pointer object-contain"
-          
-        /></a>
-        <ul className="hidden space-x-4 md:flex">
-          <Link
-            className="headerLink cursor-pointer font-semibold text-white hover:text-white"
-            href={"/"}
-          >
-            Home
+        <a href="https://www.themoviedb.org/">
+          <img
+            src={
+              "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"
+            }
+            width={100}
+            height={100}
+            className="cursor-pointer object-contain"
+          />
+        </a>
+        <ul className="hidden space-x-6 md:flex">
+          <Link href={"/"}>
+            <a className="headerLink cursor-pointer font-semibold text-white hover:text-red-700 hover:scale-125">
+              Home
+            </a>
           </Link>
-          <li className="headerLink">Series</li>
-          <li className="headerLink">Movies</li>
-          <li className="headerLink">New</li>
-          <Link
-            className="headerLink cursor-pointer font-semibold text-white hover:text-white"
-            href={"/about"}
-          >About
-          </Link> 
-          <Link
-            className="headerLink cursor-pointer font-semibold text-white hover:text-white"
-            href={"/mylist"}
-          >
-            My List
-          </Link> 
+
+          <Link href={"/about"}>
+            <a className="headerLink cursor-pointer font-semibold text-white hover:text-red-700">
+              About
+            </a>
+          </Link>
+          <Link href={"/search"}>
+            <a className="headerLink cursor-pointer font-semibold text-white hover:text-red-700">
+              Search
+            </a>
+          </Link>
+          <Link href={"/mylist"}>
+            <a className="headerLink cursor-pointer font-semibold text-white hover:text-red-700">
+              My List
+            </a>
+          </Link>
         </ul>
       </div>
 
       <div className="flex items-center space-x-4 text-sm font-light">
-      <Link href={"/search"}><FaSearch className="sm hidden h-6 w-6 sm:inline cursor-pointer hover:bg-[gray]/70 rounded " /></Link>
+        {/* <Link href={"/search"}><FaSearch className="sm hidden h-6 w-6 sm:inline cursor-pointer hover:bg-[gray]/70 rounded " /></Link> */}
 
         <FaBell className="sm hidden h-6 w-6 sm:inline" />
 
-        <button className="hover:bg-black rounded px-5 py-2 " onClick={logout}>
+        <button className="rounded px-5 py-2 hover:scale-125 hover:text-red-500 font-bold" onClick={logout}>
           Logout
         </button>
       </div>

@@ -33,17 +33,20 @@ const Search = (props: Props) => {
     )
   );
 
-  const getRidOfDuplicates = (allMovies: Movie[]) => {
-    let removed = allMovies.filter(
-      (movie, index) =>
-        index === allMovies.findIndex((elem) => elem.id === movie.id)
-    );
-    setAllMovies(removed);
-  };
+  
 
   useEffect(() => {
+    const getRidOfDuplicates = (movies: Movie[]) => {
+      let removed = movies.filter(
+        (movie, index) =>
+          index === movies.findIndex((elem) => elem.id === movie.id)
+      );
+     console.log(removed)
+      setSearchResults(removed);
+    };
+
     getRidOfDuplicates(allMovies);
-    setSearchResults(allMovies);
+    // setSearchResults(allMovies);
   }, []);
 
   const onChangeHandler = (event: any) => {
