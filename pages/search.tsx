@@ -41,7 +41,7 @@ const Search = (props: Props) => {
         (movie, index) =>
           index === movies.findIndex((elem) => elem.id === movie.id)
       );
-     console.log(removed)
+  
       setSearchResults(removed);
     };
 

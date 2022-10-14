@@ -13,15 +13,9 @@ interface MongoMovie {
   mylist: Movie[];
 }
 const MyList = (props:MongoMovie) => {
-  console.log(typeof props.mylist);
   const showModal = useRecoilValue(modalState);
   const [list, setList] = useState(props.mylist);
-  console.log(list);
-  console.log(props.mylist);
-
-  // useEffect(() => {
-  //   setList(props.mylist)
-  // },[list])
+  
 
   return (
     <>

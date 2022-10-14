@@ -16,17 +16,19 @@ import {
 import { DocumentData } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
 const MovieModal = () => {
   // Notify when item is removed or added to list
-  const notify = (message: string) => toast.success(message,{
-    position: "bottom-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
+  const notify = (message: string) =>
+    toast.success(message, {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
 
   const [showModal, setShowModal] = useRecoilState(modalState);
@@ -34,9 +36,15 @@ const MovieModal = () => {
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(false);
-  // const [myList,setMyList] = useState([]);
+  const [myList, setMyList] = useState<Movie[] | DocumentData | null>([]);
+
+  const [movieInList, setMovieInList] = useState(false);
 
   useEffect(() => {
+    // get my list so we can determine to show delete / add buttons etc.
+
+    getMyList();
+
     if (!movie) return;
     // get Movie info for modal component
     const getMovieInfo = async () => {
@@ -60,7 +68,6 @@ const MovieModal = () => {
         setGenres(data.genres);
       }
     };
-
     getMovieInfo();
   }, [movie]);
 
@@ -71,9 +78,23 @@ const MovieModal = () => {
   const date: Date = new Date(movie?.release_date);
   const year = date.getFullYear();
 
+  const getMyList = async () => {
+    const response = await fetch("/api/list", {
+      method: "GET",
+    });
+    const result = await response.json();
+    const isMovieInList = result.filter((mov: Movie) => movie?.id === mov.id);
+    if (isMovieInList.length != 0) {
+      setMovieInList(true);
+    } else {
+      setMovieInList(false);
+    }
+    setMyList(result);
+  };
+
   const saveToList = async (data: Movie | DocumentData | null) => {
+    // setMyList((prevList: Movie[]) => [...prevList, data]);
     notify("Movie added to your list!");
-    console.log(data);
     const response = await fetch("/api/list", {
       method: "POST",
       body: JSON.stringify(data),
@@ -82,8 +103,10 @@ const MovieModal = () => {
       },
     });
     const result = await response.json();
-    console.log(data);
+
+    getMyList();
   };
+
   // delete from my list
   const deleteFromList = async (id: number) => {
     notify("Removed movie from your list!");
@@ -92,6 +115,7 @@ const MovieModal = () => {
       body: JSON.stringify(id),
     });
     const result = await response.json();
+    getMyList();
   };
 
   return (
@@ -124,20 +148,27 @@ const MovieModal = () => {
                 <FaPlay className="h-7 w-7 text-black" />
                 Play
               </button>
-              <button className="modalButton ">
-                <FaPlusCircle
-                  onClick={() => saveToList(movie)}
-                  className=" h-7 w-7"
-                />
-              </button>
+
+              {!movieInList && (
+                <button className="modalButton ">
+                  <FaPlusCircle
+                    onClick={() => saveToList(movie)}
+                    className=" h-7 w-7"
+                  />
+                </button>
+              )}
+
+              {movieInList && (
+                <button className="modalButton">
+                  <RiDeleteBin2Fill
+                    onClick={() => deleteFromList(movie?.id)}
+                    className="h-7 w-7"
+                  />
+                </button>
+              )}
+
               <button className="modalButton">
                 <FaThumbsUp className="h-7 w-7" />
-              </button>
-              <button
-                className="h-7 w-12 bg-red-600 ml-11 "
-                onClick={() => deleteFromList(movie?.id)}
-              >
-                Delete{" "}
               </button>
             </div>
             <button className="modalButton" onClick={() => setMuted(!muted)}>

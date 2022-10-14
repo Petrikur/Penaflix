@@ -15,20 +15,19 @@ export default async function handler(
 
   if (req.method == "POST") {
     let duplicate = await myList.findOne({ id: parseInt(data) });
-    console.log(duplicate);
-   
-  
-      const result = await myList.insertOne(data);
-      client.close();
-   
+    const result = await myList.insertOne(data);
+    client.close();
+    res.status(201).json(result);
   } else if (req.method == "DELETE") {
-    // const findDoc = await myList.findOne({id:data})
-    // console.log(findDoc)
-    // const result = await myList.deleteOne({"_id":"6348721ad269ff82298a916a"});
-    console.log(data);
+    
     const result = await myList.findOneAndDelete({ id: parseInt(data) });
-    console.log(result);
+   
+    res.status(201).json(result);
+    // res.status(201).json(result)
+  } else if (req.method == "GET") {
+    const result = await myList.find().toArray();
+   
+    res.status(201).json(result);
   }
   client.close();
-  res.status(201).json({});
 }
