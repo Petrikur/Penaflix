@@ -85,6 +85,7 @@ const MovieModal = () => {
   const year = date.getFullYear();
 
   const getMyList = async () => {
+    setIsLoading(true)
     const response = await fetch("/api/list", {
       method: "GET",
     });
@@ -96,6 +97,7 @@ const MovieModal = () => {
       setMovieInList(false);
     }
     setMyList(result);
+    setIsLoading(false)
   };
 
   const saveToList = async (data: Movie | DocumentData | null) => {
@@ -188,16 +190,7 @@ const MovieModal = () => {
               <div className="flex space-x-6">
                 {/* Render add button if movie not in list  */}
                 {!movieInList && (
-                  <button className="modalButton" title="Add to my list">
-                    {/* hover text  */}
-                    <p>
-                      <a
-                        href="#"
-                        className=" transition duration-75 ease-in-out"
-                        data-bs-toggle="tooltip"
-                        title="Add to My List!"
-                      ></a>
-                    </p>
+                  <button className="modalButton" title="Add to my list">  
                     {isLoading ? (
                       <Spinner />
                     ) : (
