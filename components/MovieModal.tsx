@@ -1,7 +1,11 @@
 import MUiModal from "@mui/material/Modal";
 import { modalState, movieState } from "./AtomModal";
 import { useRecoilState } from "recoil";
-import { RiCloseCircleFill, RiCreativeCommonsZeroLine } from "react-icons/ri";
+import {
+  RiCloseCircleFill,
+  RiCreativeCommonsZeroLine,
+  RiTruckLine,
+} from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { Element, Genre } from "../models/types";
 import ReactPlayer from "react-player/lazy";
@@ -38,6 +42,7 @@ const MovieModal = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(false);
   const [myList, setMyList] = useState<Movie[] | DocumentData | null>([]);
+  const [isLoading, setIsLoading] = useState<boolean>();
 
   const [movieInList, setMovieInList] = useState(false);
 
@@ -94,6 +99,7 @@ const MovieModal = () => {
   };
 
   const saveToList = async (data: Movie | DocumentData | null) => {
+    setIsLoading(true);
     // setMyList((prevList: Movie[]) => [...prevList, data]);
     notify("Movie added to your list!");
     const response = await fetch("/api/list", {
@@ -105,11 +111,13 @@ const MovieModal = () => {
     });
     const result = await response.json();
 
+    setIsLoading(false);
     getMyList();
   };
 
   // delete from my list
   const deleteFromList = async (id: number) => {
+    setIsLoading(true);
     notify("Removed movie from your list!");
     const response = await fetch("/api/list", {
       method: "DELETE",
@@ -117,6 +125,20 @@ const MovieModal = () => {
     });
     const result = await response.json();
     getMyList();
+    setIsLoading(false);
+  };
+
+  const Spinner = () => {
+    return (
+      <div className="flex justify-center items-center">
+        <div
+          className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full "
+          role="status"
+        >
+          <span className="visually-hidden"></span>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -162,31 +184,48 @@ const MovieModal = () => {
               <p className="font-light">{year || movie?.first_air_date}</p>
               <div className="flex h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs">
                 4K
-              </div> 
+              </div>
               <div className="flex space-x-6">
-              
-              {!movieInList && (
-                <button className="modalButton" title="remove">
-                  <FaPlusCircle
-                    onClick={() => saveToList(movie)}
-                    className=" h-7 w-7 "
-                  />
-                </button>
-              )}
+                {/* Render add button if movie not in list  */}
+                {!movieInList && (
+                  <button className="modalButton" title="Add to my list">
+                    {/* hover text  */}
+                    <p>
+                      <a
+                        href="#"
+                        className=" transition duration-75 ease-in-out"
+                        data-bs-toggle="tooltip"
+                        title="Add to My List!"
+                      ></a>
+                    </p>
+                    {isLoading ? (
+                      <Spinner />
+                    ) : (
+                      <FaPlusCircle
+                        onClick={() => saveToList(movie)}
+                        className=" h-7 w-7 "
+                      />
+                    )}
+                  </button>
+                )}
+                {/* Render delete button if movie is in list  */}
+                {movieInList && (
+                  <button title="Remove from my list" className="modalButton">
+                    {isLoading ? (
+                      <Spinner />
+                    ) : (
+                      <RiDeleteBin2Fill
+                        onClick={() => deleteFromList(movie?.id)}
+                        className="h-7 w-7"
+                      />
+                    )}
+                  </button>
+                )}
 
-              {movieInList && (
-                <button type="button" className="modalButton">
-                  <RiDeleteBin2Fill
-                    onClick={() => deleteFromList(movie?.id)}
-                    className="h-7 w-7"
-                  />
+                <button className="modalButton">
+                  <FaThumbsUp className="h-7 w-7" />
                 </button>
-              )}
-
-              <button className="modalButton">
-                <FaThumbsUp className="h-7 w-7" />
-              </button>
-            </div>
+              </div>
             </div>
             <div className="flex flex-col gap-x-10 gap-y-4 font-light md:flex-row">
               <p className="w-5/6 ">{movie?.overview}</p>
