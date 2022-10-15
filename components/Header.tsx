@@ -62,24 +62,37 @@ const Header = () => {
           )}
         </div>
 
-{/* // mobile  */}
-<div className="  flex justify-center items-center w-20 h-20 z--10 ">
-        <ul className={!nav ? "hidden" : "absolute bg-black w-full  px-8 flex flex-col top-0 left-0 h-[40vh] space-y-7 "}>
-          <Link className=""  href={"/"}>
-            <a onClick={handleClose} className="mobileLink mt-24">Home</a>
-          </Link>
-          <Link  href={"/about"}>
-            <a onClick={handleClose} className="mobileLink">About</a>
-          </Link>
-          <Link href={"/mylist"}>
-            <a  onClick={handleClose}  className="mobileLink">My List</a>
-          </Link>
-          <Link  href={"/search"}>
-            <a onClick={handleClose} className="mobileLink">Search</a>
-          </Link>
-
-        </ul></div>
-        
+        {/* // mobile  */}
+        <div className="flex justify-center items-center w-20 h-20 z--10 ">
+          <ul
+            className={
+              !nav
+                ? "hidden"
+                : "absolute bg-black w-full  px-8 flex flex-col top-0 left-0 h-[50vh] space-y-7 "
+            }
+          >
+            <Link className="" href={"/"}>
+              <a onClick={handleClose} className="mobileLink mt-24">
+                Home
+              </a>
+            </Link>
+            <Link href={"/about"}>
+              <a onClick={handleClose} className="mobileLink">
+                About
+              </a>
+            </Link>
+            <Link href={"/mylist"}>
+              <a onClick={handleClose} className="mobileLink">
+                My List
+              </a>
+            </Link>
+            <Link href={"/search"}>
+              <a onClick={handleClose} className="mobileLink">
+                Search
+              </a>
+            </Link>
+          </ul>
+        </div>
 
         <ul className="hidden space-x-6 md:flex">
           <Link href={"/"}>
@@ -105,9 +118,6 @@ const Header = () => {
           </Link>
         </ul>
       </div>
-
-      
-
       <div className="flex items-center space-x-4 text-sm font-light">
         {/* <Link href={"/search"}><FaSearch className="sm hidden h-6 w-6 sm:inline cursor-pointer hover:bg-[gray]/70 rounded " /></Link> */}
 

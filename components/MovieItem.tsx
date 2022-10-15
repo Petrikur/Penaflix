@@ -20,7 +20,7 @@ const MovieItem = ({ movie }: Props) => {
       }}
     >
       <Image
-        priority
+        priority = {true}
         src={`https://image.tmdb.org/t/p/w500${
           movie.backdrop_path || movie.poster_path
         }`}

@@ -126,16 +126,16 @@ const MovieModal = () => {
       onClose={closeModal}
     >
       <>
-
         <button
           onClick={closeModal}
-          className="modalButton absolute right-5 top-5 !z-40 h-9 w-9 border-none bg-[#181818] "
+          className="modalButton absolute right-5 top-20 !z-40 h-9 w-9 border-none bg-[#181818] "
         >
           <RiCloseCircleFill className="h-6 w-6" />
         </button>
         {/*  this padding is must for responsive design check reactplayer docs */}
         <div className="relative pt-[56.25%]">
           <ReactPlayer
+            controls={true}
             url={`https://www.youtube.com/watch?v=${trailer}`}
             width="100%"
             height="100%"
@@ -144,13 +144,27 @@ const MovieModal = () => {
             muted={muted}
           />
 
-          <div className="absolute bottom-10 flex w-full items-center justify-between px-12">
-            <div className="flex space-x-2">
-              <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg[#e6e6e6]">
-                <FaPlay className="h-7 w-7 text-black" />
-                Play
-              </button>
-
+          {/* <div className="absolute bottom-14 flex w-full items-center justify-between px-5 py-2">
+        
+            <button className="modalButton" onClick={() => setMuted(!muted)}>
+              {muted ? (
+                <FaVolumeOff className="h-6 w-6" />
+              ) : (
+                <FaVolumeUp className="h-6 w-6" />
+              )}
+            </button>
+          </div> */}
+        </div>
+        <div className="flex space-x-12 rounded-b-md bg-[#181818] px-10 py-8">
+          <div className="space-y-4 text-lg ">
+            <div className="flex items-center space-x-6  text-sm">
+              <p className=" text-xl font-bold text-white">{movie?.title}</p>
+              <p className="font-light">{year || movie?.first_air_date}</p>
+              <div className="flex h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs">
+                4K
+              </div> 
+              <div className="flex space-x-6">
+              
               {!movieInList && (
                 <button className="modalButton" title="remove">
                   <FaPlusCircle
@@ -159,14 +173,9 @@ const MovieModal = () => {
                   />
                 </button>
               )}
-              
 
               {movieInList && (
-                <button
-                  
-                  type="button"
-                  className="modalButton"
-                >
+                <button type="button" className="modalButton">
                   <RiDeleteBin2Fill
                     onClick={() => deleteFromList(movie?.id)}
                     className="h-7 w-7"
@@ -178,27 +187,11 @@ const MovieModal = () => {
                 <FaThumbsUp className="h-7 w-7" />
               </button>
             </div>
-            <button className="modalButton" onClick={() => setMuted(!muted)}>
-              {muted ? (
-                <FaVolumeOff className="h-6 w-6" />
-              ) : (
-                <FaVolumeUp className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-        <div className="flex space-x-12 rounded-b-md bg-[#181818] px-10 py-8">
-          <div className="space-y-4 text-lg ">
-            <div className="flex items-center space-x-6  text-sm">
-              <p className=" text-xl font-bold text-white">{movie?.title}</p>
-              <p className="font-light">{year || movie?.first_air_date}</p>
-              <div className="flex h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs">
-                4K
-              </div>
             </div>
             <div className="flex flex-col gap-x-10 gap-y-4 font-light md:flex-row">
               <p className="w-5/6 ">{movie?.overview}</p>
               <div className="flex flex-col space-y-2 text-sm">
+                <div>{movie?.popularity}</div>
                 <div>
                   <span className="text-[gray]">Genres:</span>
                   {genres.map((genre) => genre.name).join(",")}
@@ -224,7 +217,6 @@ const MovieModal = () => {
           theme="light"
         />
       </>
-      
     </MUiModal>
   );
 };
