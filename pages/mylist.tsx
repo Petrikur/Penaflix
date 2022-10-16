@@ -23,7 +23,8 @@ const MyList = (props:MongoMovie) => {
    
       <div>
         <Head>
-          <title>Penaflix Search</title>
+          <title>My List</title>
+          <meta name = "My list" content = "Browse movies that are in my list"></meta>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
@@ -60,6 +61,6 @@ export const getServerSideProps = async () => {
   return {
     props: {
       mylist: JSON.parse(JSON.stringify(myList)),
-    },
-  };
-};
+    }
+  }
+}

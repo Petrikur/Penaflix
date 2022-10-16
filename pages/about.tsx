@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import backgroundImage from "../components/Images/movietheatre.jpg";
 import Header from "../components/Header";
+import Head from "next/head"
 
 import Link from "next/link";
 
@@ -9,6 +10,10 @@ const About = () => {
   return (
     <div className="absolute top-28 px-5 flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
       <Header />
+      <Head>
+        <title>About</title>
+        <meta name = "about" content = "Information about api used in app"></meta>
+      </Head>
       <Image
         src={backgroundImage}
         layout="fill"

@@ -35,6 +35,7 @@ const Login = () => {
     <div className="relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
       <Head>
         <title>Penaflix Login</title>
+        <meta name = "Login" >Login to Penaflix</meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Image

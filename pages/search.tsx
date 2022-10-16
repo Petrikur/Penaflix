@@ -72,6 +72,7 @@ const Search = (props: Props) => {
       <div>
         <Head>
           <title>Penaflix Search</title>
+          <meta name = "search" content = "Filter Movies by search" ></meta>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
